@@ -1,0 +1,21 @@
+<h5>Antrean:</h5>
+<form [formGroup]="this.antreanService.form" (ngSubmit)="saveRequest()">
+  
+  <input
+    class="input-field col s12"
+    placeholder="No Antrian"
+    formControlName="no_antrean"
+    type="number"
+  />
+
+  <input
+    placeholder="Nama Pasien"
+    formControlName="nama"
+    type="text"
+    class="input-field col s12"
+  />
+
+  <button class="waves-effect waves-light btn col s12" type="submit">
+    Submit
+  </button>
+</form>

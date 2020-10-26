@@ -1,0 +1,27 @@
+<table>
+    <thead>
+      <tr>
+        <th>No. Antrean</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let antrean of dataAntrean">
+        <td>
+          {{ antrean.payload.doc.data().no_antrean }}
+        </td>
+        <td>{{ antrean.payload.doc.data().nama }}</td>
+        <td
+          [hidden]="antrean.payload.doc.data().completed"
+          (click)="deleteAntrean(antrean)"
+        >
+          <i class="material-icons link">delete_forever</i>
+        </td>
+      </tr>
+    </tbody>
+</table>
+
+<ul>
+    <li></li>
+</ul>
