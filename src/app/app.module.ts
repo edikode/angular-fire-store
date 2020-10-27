@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
+import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrdersComponent } from './orders/orders.component';
+import { OptionAntreanReducer } from './order-list/store/option-antrean.reducer';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { OrdersComponent } from './orders/orders.component';
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    StoreModule.forRoot({optionAntrean: OptionAntreanReducer}),
 
   ],
   providers: [],

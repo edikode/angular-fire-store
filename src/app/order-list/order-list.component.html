@@ -1,7 +1,11 @@
 <br>
-<button class="waves-effect waves-light btn col s3" [disabled]="statusAntrean" (click)="changeStatusAntrean(statusAntrean)">
-  Status : Off
+<button class="waves-effect waves-light btn col s3" (click)="changeStatusAntrean(statusAntrean)">
+  Status : {{ statusAntrean ? "ON" : "OFF" }}
 </button>
+
+<div *ngFor="let option of (optionAntrean | async).optionAntrean; let i = index">
+  {option.status}
+</div>
 
 <table>
     <thead>

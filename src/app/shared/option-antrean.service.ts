@@ -14,9 +14,9 @@ export class OptionAntreanService {
 
   constructor(private firestore: AngularFirestore) { }
 
+  // get document
   getStatusAntrean() {
-    // return this.firestore.collection("coffeeOrders").snapshotChanges();
-    return this.firestore.collection("klinik").doc(this.klinikId).collection("antrean").doc(this.filterDate).snapshotChanges();
+    return this.firestore.collection("klinik").doc(this.klinikId).collection("antrean").doc(this.filterDate).valueChanges();
   }
 
   updateCurrentAntrean(value) {
