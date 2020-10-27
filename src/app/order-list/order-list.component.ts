@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AntreanService } from "../shared/antrean.service";
+import { OptionAntreanService } from '../shared/option-antrean.service';
 
 @Component({
   selector: 'app-order-list',
@@ -8,13 +9,20 @@ import { AntreanService } from "../shared/antrean.service";
 })
 export class OrderListComponent implements OnInit {
 
-  constructor(private antreanService: AntreanService) {}
+  statusAntrean: boolean = false;
+
+  constructor(
+    private antreanService: AntreanService,
+    private optionAntreanService: OptionAntreanService,
+    ) {}
 
   ngOnInit() {
     this.getAntrean();
+    this.getStatusAntrean();
   }
 
   dataAntrean;
+  settingAntrean;
 
   getAntrean = () =>
     this.antreanService
@@ -25,7 +33,18 @@ export class OrderListComponent implements OnInit {
       });
 
   deleteAntrean = data => this.antreanService.deleteListAntrean(data);
+      
 
-  markCompleted = data => this.antreanService.updateListAntrean(data);
+  getStatusAntrean = () =>
+    this.optionAntreanService
+      .getStatusAntrean()
+      .subscribe(res => {
+        this.settingAntrean = res;
+        console.log(this.settingAntrean.length);
+      });
 
+  changeStatusAntrean(data){
+    
+    this.optionAntreanService.updateStatusAntrean(data ? false : true);
+  } 
 }
