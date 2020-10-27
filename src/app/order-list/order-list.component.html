@@ -3,10 +3,6 @@
   Status : {{ statusAntrean ? "ON" : "OFF" }}
 </button>
 
-<div *ngFor="let option of (optionAntrean | async).optionAntrean; let i = index">
-  {option.status}
-</div>
-
 <table>
     <thead>
       <tr>

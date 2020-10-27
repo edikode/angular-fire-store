@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AntreanService } from "../shared/antrean.service";
 import { OptionAntreanService } from '../shared/option-antrean.service';
+
 import { Store } from '@ngrx/store';
-import { Option } from '../shared/option.model';
-import { Observable } from 'rxjs';
+import * as fromApp from '../store/app.reducer';
 
 @Component({
   selector: 'app-order-list',
@@ -14,45 +14,36 @@ export class OrderListComponent implements OnInit {
 
   statusAntrean: boolean = false;
 
-  optionAntrean: Observable<{option: Option[]}>;
+  dataAntrean;
+  settingAntrean;
 
   constructor(
     private antreanService: AntreanService,
     private optionAntreanService: OptionAntreanService,
-    private store: Store<{optionAntrean: {option: Option[] }}>
+    private store: Store<fromApp.AppState>
     ) {}
 
   ngOnInit() {
-    this.optionAntrean = this.store.select('optionAntrean');
-    console.log(this.optionAntrean);
     this.getAntrean();
     this.getStatusAntrean();
   }
-
-  dataAntrean;
-  settingAntrean;
 
   getAntrean = () =>
     this.antreanService
       .getAntrean()
       .subscribe(res => {
         this.dataAntrean = res;
-        console.log(this.dataAntrean.length);
+        // console.log(this.dataAntrean.length);
       });
 
   deleteAntrean = data => this.antreanService.deleteListAntrean(data);
 
-  getStatusAntrean = () =>
-    this.optionAntreanService
-      .getStatusAntrean()
-      .subscribe(res => {
-        this.settingAntrean = res;
-        if(this.settingAntrean){
-          this.statusAntrean = this.settingAntrean.status ? this.settingAntrean.status : false;
-          console.log(this.settingAntrean);
-        }
-      });
-
   changeStatusAntrean = data => this.optionAntreanService.updateStatusAntrean(data ? false : true);
 
+  getStatusAntrean() {
+    this.store.select('optionAntrean').subscribe(res => {
+      this.statusAntrean = res.settingAntrean.status ? res.settingAntrean.status : false;
+      console.log(res.settingAntrean, "data setting");
+    });
+  }
 }

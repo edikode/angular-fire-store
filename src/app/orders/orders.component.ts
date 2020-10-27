@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AntreanService } from '../shared/antrean.service';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from '../store/app.reducer';
 
 @Component({
   selector: 'app-orders',
@@ -7,10 +10,20 @@ import { AntreanService } from '../shared/antrean.service';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  
+  statusAntrean: boolean;
 
-  constructor(public antreanService: AntreanService) {}
+  constructor(
+    public antreanService: AntreanService,
+    private store: Store<fromApp.AppState>
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.select('optionAntrean').subscribe(res => {
+      this.statusAntrean = res.settingAntrean.status ? res.settingAntrean.status : false;
+      // console.log(res.settingAntrean, "data setting");
+    });
+  }
 
   saveRequest() {
     let data = this.antreanService.form.value;

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +13,9 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrdersComponent } from './orders/orders.component';
-import { OptionAntreanReducer } from './order-list/store/option-antrean.reducer';
+import * as fromApp from './store/app.reducer';
+import { OptionAntreanEffects } from './order-list/store/option-antrean.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,12 +25,13 @@ import { OptionAntreanReducer } from './order-list/store/option-antrean.reducer'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    StoreModule.forRoot({optionAntrean: OptionAntreanReducer}),
-
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([OptionAntreanEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,21 +1,21 @@
-import { Action } from '@ngrx/store';
-
 import * as OptionAction from './option-antrean.actions';
-import { Option } from '../../shared/option.model';
+import { Option } from 'src/app/shared/option.model';
 
-const initialState = {
-    option: [
-        new Option(false, 0, 0)
-    ]
+export interface State {
+    settingAntrean: Option;
 }
+  
+const initialState: State = {
+    settingAntrean: new Option(false, 0, 0)
+};
 
-export function OptionAntreanReducer(state = initialState, action: OptionAction.AddOption) {
+export function OptionAntreanReducer(state = initialState, action: OptionAction.OptionAntreanActions) {
 
     switch(action.type) {
-        case OptionAction.ADD_OPTION: 
+        case OptionAction.SET_OPTION: 
             return {
                 ...state,
-                option: [...state.option, action.payload]
+                settingAntrean: action.payload
             };
 
         default:

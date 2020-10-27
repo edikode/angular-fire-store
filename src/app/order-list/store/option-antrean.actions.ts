@@ -1,10 +1,18 @@
 import { Action } from '@ngrx/store';
-import { Option } from 'src/app/shared/option.model';
 
-export const ADD_OPTION = 'ADD_OPTION';
+export const SET_OPTION = 'SET_OPTION';
+export const FETCH_OPTION = 'FETCH_OPTION';
 
-export class AddOption implements Action {
-    readonly type= ADD_OPTION;
-    payload: Option;
-    
+export class SetOption implements Action {
+    readonly type= SET_OPTION;
+
+    constructor(public payload: any) {}
 }
+
+export class FetchOption implements Action {
+    readonly type = FETCH_OPTION;
+}
+
+export type OptionAntreanActions =
+  | SetOption
+  | FetchOption;
