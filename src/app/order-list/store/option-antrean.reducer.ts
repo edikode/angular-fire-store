@@ -1,12 +1,16 @@
 import * as OptionAction from './option-antrean.actions';
-import { Option } from 'src/app/shared/option.model';
+import { settingAntrean } from 'src/app/shared/option.model';
 
 export interface State {
-    settingAntrean: Option;
+    settingAntrean: settingAntrean
 }
   
 const initialState: State = {
-    settingAntrean: new Option(false, 0, 0)
+    settingAntrean: {
+        status: false,
+        current: 0,
+        total: 0
+    }
 };
 
 export function OptionAntreanReducer(state = initialState, action: OptionAction.OptionAntreanActions) {

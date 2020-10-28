@@ -28,6 +28,16 @@ export class OrderListComponent implements OnInit {
     this.getStatusAntrean();
   }
 
+  getStatusAntrean() {
+    this.store.select('optionAntrean').subscribe(res => {
+      if(res.settingAntrean) {
+        this.statusAntrean = res.settingAntrean.status ? res.settingAntrean.status : false;
+      }
+    });
+  }
+
+  changeStatusAntrean = data => this.optionAntreanService.updateStatusAntrean(data ? false : true);
+
   getAntrean = () =>
     this.antreanService
       .getAntrean()
@@ -38,12 +48,4 @@ export class OrderListComponent implements OnInit {
 
   deleteAntrean = data => this.antreanService.deleteListAntrean(data);
 
-  changeStatusAntrean = data => this.optionAntreanService.updateStatusAntrean(data ? false : true);
-
-  getStatusAntrean() {
-    this.store.select('optionAntrean').subscribe(res => {
-      this.statusAntrean = res.settingAntrean.status ? res.settingAntrean.status : false;
-      console.log(res.settingAntrean, "data setting");
-    });
-  }
 }

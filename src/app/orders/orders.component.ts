@@ -20,8 +20,10 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
     this.store.select('optionAntrean').subscribe(res => {
-      this.statusAntrean = res.settingAntrean.status ? res.settingAntrean.status : false;
-      // console.log(res.settingAntrean, "data setting");
+      if(res.settingAntrean) {
+        // console.log(res.settingAntrean.status, "data setting");
+        this.statusAntrean = res.settingAntrean.status ? res.settingAntrean.status : false;
+      }
     });
   }
 
